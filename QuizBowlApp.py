@@ -75,3 +75,8 @@ class QuizApp:
 
         ttk.Label(self.quizFrame, text=f"You scored {correctAnswers}/{totalQs}").grid(row=totalQs + 2, column=0, columnspan=5, padx=5, pady=5)
 
+# running main window
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = QuizApp(root)
+    root.mainloop()
