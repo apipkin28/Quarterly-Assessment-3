@@ -32,3 +32,24 @@ class QuizApp:
         self.submitBtn = ttk.Button(self.mainFrame, text="Start Quiz", command=self.startQuiz)
         self.submitBtn.grid(row=0, column=2, padx=5, pady=5)
     
+    # second window
+    def startQuiz(self):
+        selectedCategory = self.categoryVar.get()
+        questions = self.getQs(selectedCategory)
+
+        self.mainFrame.destroy()
+
+        self.quizFrame = ttk.Frame(self.root, padding="20")
+        self.quizFrame.grid(row=0, column=0)
+
+        self.questionLabels = []
+        self.selectedAnswers = {}
+        for i, (question, answer) in enumerate(questions, start=1):
+            ttk.Label(self.quizFrame, text=f"{i}. {question}").grid(row=i, column=0, sticky="w", padx=5, pady=5)
+            self.selectedAnswers[i] = tk.StringVar()
+            ttk.Radiobutton(self.quizFrame, text="A", variable=self.selectedAnswers[i], value="A").grid(row=i, column=1, sticky="w", padx=5, pady=5)
+            ttk.Radiobutton(self.quizFrame, text="B", variable=self.selectedAnswers[i], value="B").grid(row=i, column=2, sticky="w", padx=5, pady=5)
+            ttk.Radiobutton(self.quizFrame, text="C", variable=self.selectedAnswers[i], value="C").grid(row=i, column=3, sticky="w", padx=5, pady=5)
+
+        ttk.Button(self.quizFrame, text="Submit Answers", command=lambda: self.submitAnswers(selectedCategory, questions)).grid(row=len(questions) + 1, column=0, columnspan=4, padx=5, pady=10)
+    
