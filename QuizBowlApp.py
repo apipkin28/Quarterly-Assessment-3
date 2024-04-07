@@ -53,3 +53,8 @@ class QuizApp:
 
         ttk.Button(self.quizFrame, text="Submit Answers", command=lambda: self.submitAnswers(selectedCategory, questions)).grid(row=len(questions) + 1, column=0, columnspan=4, padx=5, pady=10)
     
+    # retrieving questions from db table
+    def getQs(self, category):
+        self.cr.execute(f"SELECT question, answer FROM {category}")
+        return self.cr.fetchall()
+    
