@@ -58,3 +58,20 @@ class QuizApp:
         self.cr.execute(f"SELECT question, answer FROM {category}")
         return self.cr.fetchall()
     
+    # scoring
+    def submitAnswers(self, category, questions):
+        correctAnswers = 0
+        totalQs = len(questions)
+
+        for i, (question, answer) in enumerate(questions, start=1):
+            selected_answer = self.selectedAnswers[i].get()
+            if selected_answer == answer:
+                correctAnswers += 1
+                feedback = "Correct!"
+            else:
+                feedback = f"Incorrect. Correct answer: {answer}"
+
+            ttk.Label(self.quizFrame, text=feedback).grid(row=i, column=4, sticky="w", padx=5, pady=5)
+
+        ttk.Label(self.quizFrame, text=f"You scored {correctAnswers}/{totalQs}").grid(row=totalQs + 2, column=0, columnspan=5, padx=5, pady=5)
+
